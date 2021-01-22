@@ -35,4 +35,19 @@ window.onload=function(){
   signalLoop(traffic, signals,(subject,signal)=>{
     subject.className=`traffic ${signal}`
   });
+
+  // four
+  const list=document.querySelector('ul');
+  const buttons=list.querySelectorAll('button');
+  buttons.forEach((button)=>{
+    button.addEventListener('click',function f(evt){
+      const target=evt.target;
+      target.parentNode.className='completed';
+      setTimeout(()=>{
+        list.removeChild(target.parentNode);
+      },2000)
+      // target.removeEventListener('click',f)
+      target.disabled=true;
+    })
+  })
 }
