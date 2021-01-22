@@ -10,16 +10,21 @@ window.onload=function(){
   //   })
   
   // three
+  function wait(ms){
+    return new Promise((resolve)=>{
+      setTimeout(resolve,ms);
+    })
+  }
   const traffic=document.querySelector('.traffic');
-  function signalLoop(subject,signals=[],onSignal){
+
+  async function signalLoop(subject,signals=[],onSignal){
     const signalCount=signals.length;
-    function updateState(i){
+    for(let i=0;;i++){
       const {signal,duration}=signals[i % signalCount];
       // subject.className=signal;
-      onSignal(subject,signal);
-      setTimeout(updateState.bind(null,i+1),duration)
+      await onSignal(subject,signal);
+      await wait(duration);
     }
-    updateState(0)
   }
   // 数据抽象
   const signals = [
